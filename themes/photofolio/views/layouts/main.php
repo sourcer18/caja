@@ -306,38 +306,40 @@
                         
                         <li class="treeview">
                             <a href="index.html">
-                                <i class="fa fa-dashboard"></i> <span>Inicio</span>
+                                <i class="fa fa-home"></i> <span>Inicio</span>
                             </a>
                         </li>
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-edit"></i> <span>Crear Nuevo</span>
+                                <i class="fa fa-edit"></i>
+                                <span>Crear Nuevo</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Archivo</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Carpeta</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-cloud-upload"></i> Archivo</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-folder-open"></i> Carpeta</a></li>
+                                
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="index.html">
-                                <i class="fa fa-dashboard"></i> <span>Ver estadisticas</span>
+                                <i class="fa fa-bar-chart-o"></i> <span>Ver estadisticas</span>
                             </a>
                         </li>
                         <li class="treeview">
                             <a href="index.html">
-                                <i class="fa fa-dashboard"></i> <span>Perfil</span>
+                                <i class="fa fa-user"></i> <span>Perfil</span>
                             </a>
                         </li>
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
+                                <i class="fa fa-wrench"></i>
                                 <span>Administrar</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Espacios</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-user"></i> Usuarios</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-cloud"></i> Espacios</a></li>
                                 
                             </ul>
                         </li>
@@ -370,86 +372,6 @@
                                     ),
                                 )); ?>
                             </a>
-                        </li>
-                        <li>
-
-                            <a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/widgets.html">
-                                <i class="fa fa-th"></i> <span>Widgets</span> <small class="badge pull-right bg-green">new</small>
-                            </a>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Charts</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/charts/morris.html"><i class="fa fa-angle-double-right"></i> Morris</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/charts/flot.html"><i class="fa fa-angle-double-right"></i> Flot</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> Inline charts</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-laptop"></i>
-                                <span>UI Elements</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/UI/general.html"><i class="fa fa-angle-double-right"></i> General</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/UI/icons.html"><i class="fa fa-angle-double-right"></i> Icons</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/UI/buttons.html"><i class="fa fa-angle-double-right"></i> Buttons</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/UI/sliders.html"><i class="fa fa-angle-double-right"></i> Sliders</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/UI/timeline.html"><i class="fa fa-angle-double-right"></i> Timeline</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-edit"></i> <span>Forms</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/forms/general.html"><i class="fa fa-angle-double-right"></i> General Elements</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/forms/advanced.html"><i class="fa fa-angle-double-right"></i> Advanced Elements</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/forms/editors.html"><i class="fa fa-angle-double-right"></i> Editors</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-table"></i> <span>Tables</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/tables/simple.html"><i class="fa fa-angle-double-right"></i> Simple tables</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/tables/data.html"><i class="fa fa-angle-double-right"></i> Data tables</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/calendar.html">
-                                <i class="fa fa-calendar"></i> <span>Calendar</span>
-                                <small class="badge pull-right bg-red">3</small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/mailbox.html">
-                                <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                                <small class="badge pull-right bg-yellow">12</small>
-                            </a>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-folder"></i> <span>Examples</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/examples/invoice.html"><i class="fa fa-angle-double-right"></i> Invoice</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/examples/login.html"><i class="fa fa-angle-double-right"></i> Login</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/examples/register.html"><i class="fa fa-angle-double-right"></i> Register</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/examples/lockscreen.html"><i class="fa fa-angle-double-right"></i> Lockscreen</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/examples/404.html"><i class="fa fa-angle-double-right"></i> 404 Error</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/examples/500.html"><i class="fa fa-angle-double-right"></i> 500 Error</a></li>
-                                <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/pages/examples/blank.html"><i class="fa fa-angle-double-right"></i> Blank Page</a></li>
-                            </ul>
                         </li>
                     </ul>
                 </section>
