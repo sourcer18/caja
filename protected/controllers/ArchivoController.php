@@ -32,7 +32,7 @@ class ArchivoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','listarAjax'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -169,5 +169,46 @@ class ArchivoController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+        
+        /**
+	 * Guarda una lista.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionListarAjax()
+	{
+		/*$model=Archivo::model()->findByPk($id);
+                $this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));*/
+            $id = trim($_POST['id']);
+            
+            if($id == ''){
+               $archivos=Archivo::model()->findAll(array(
+                    'condition'=>'iPadre is null'
+                )); 
+            }else{
+                $archivos=Archivo::model()->findAll(array(
+                    'condition'=>'iPadre=:idPadre',
+                    'params'=>array(':idPadre'=>$id)
+                ));
+            }
+                
+            /*echo "<pre>";
+            print_r($archivos);
+            echo "</pre>";
+            Yii::app()->end();*/
+            
+            // preparación array respuesta
+            //$resp = array('archivos'=>$archivos, 'id'=>$id);
+            // entrega del array via JSON array
+            header("Content-type: application/json");
+            echo CJSON::encode($archivos);
+            //echo CJSON::encode($resp);
+            /*
+            $this->layout = '//layouts/vacio';
+            //echo "hola";
+            //$archivos = null;
+            $this->render('listarajax', array('archivos'=>$archivos, 'id'=>$id));*/
 	}
 }

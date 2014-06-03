@@ -390,56 +390,17 @@
                         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
                         <li class="active">Panel de control</li>
                     </ol>
+<!-- SECCIÓN BREADCRUMBS -->
+                      <?php if(isset($this->breadcrumbs)):?>
+                            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
+                              'links'=>$this->breadcrumbs,
+                            )); ?><!-- breadcrumbs -->
+                        <?php endif?>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
-                    <!-- top row -->
-                    <div class="row">
-                        <div class="col-xs-12 connectedSortable">
-                            
-                        </div><!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-
-                    <!-- Main row -->
-                    <div class="row">
-                        <!-- Left col -->
-                        <section class="col-lg-6 connectedSortable"> 
-                          
-                        </section><!-- /.Left col -->
-                        <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                        <section class="col-lg-12 connectedSortable">
-                            <!-- Map box -->
-                            <div class="box box-primary">
-                                <div class="box-header" style="height: 400px;">
-                                    <!-- tools box -->
-                                    <div class="pull-right box-tools">  
-                                        <button class="btn btn-primary btn-sm pull-right" title="Salir" data-toggle="tooltip" data-widget="remove" style="margin-right: 5px;" data-original-title="Remove"><i class="fa fa-times"></i></button>                                      
-                                        <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Minimizar" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
-                                    </div><!-- /. tools -->
-
-                                    <i class="fa fa-cloud"></i>
-                                    <h3 class="box-title">
-                                        Mostrar
-                                    </h3>
-
-                                    <?php if(isset($this->breadcrumbs)):?>
-                                    <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                                      'links'=>$this->breadcrumbs,
-                                    )); ?><!-- breadcrumbs -->
-                                    <?php endif?>
-                                      <?php echo $content;?>
-
-
-                                </div>
-                                <div class="box-body no-padding">
-                                    
-                                </div><!-- /.box-body-->
-                            </div>
-                        </section><!-- right col -->
-                    </div><!-- /.row (main row) -->
-
+                    <?php echo $content;?>
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
@@ -448,13 +409,15 @@
 
 
         <!-- jQuery 2.0.2 -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>-->
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery.min.js" type="text/javascript"></script>
         <!-- jQuery UI 1.10.3 -->
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
         <!-- Bootstrap -->
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/bootstrap.min.js" type="text/javascript"></script>
         <!-- Morris.js charts -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/raphael-min.js" type="text/javascript"></script>
+        <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> -->
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/plugins/morris/morris.min.js" type="text/javascript"></script>
         <!-- Sparkline -->
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
