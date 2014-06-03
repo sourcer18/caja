@@ -431,7 +431,7 @@
                                     ),
                                 )); ?>
 
-                                <?php $this->widget('bootstrap.widgets.BootNavbar', array(
+                                <?php /*$this->widget('bootstrap.widgets.BootNavbar', array(
                                         'fixed'=>false,
                                         'brand'=>Yii::app()->name,
                                         'brandUrl'=>'index.php?r=site/index',
@@ -453,9 +453,9 @@
                                                         'class'=>'bootstrap.widgets.BootMenu',
                                                         'htmlOptions'=>array('class'=>'pull-left'),
                                                         'items'=>Yii::app()->uimanager->menuSistema,
-                                                ),*/
+                                                ),
                                         ),
-                                )); ?>
+                                )); */?>
 
                                 <?php $this->widget('zii.widgets.CMenu',array(
                                   'id'=>'topnav', 
