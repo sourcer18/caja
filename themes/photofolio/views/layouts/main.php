@@ -332,10 +332,10 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="<?php if(!Yii::app()->user->isGuest){echo Yii::app()->user->ui->editProfileUrl;} ?>" class="btn btn-default btn-flat">Perfil</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="<?php echo Yii::app()->user->ui->logoutUrl?>" class="btn btn-default btn-flat">Desconectar</a>
                                     </div>
                                 </li>
                             </ul>
@@ -355,8 +355,8 @@
                             <img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/avatar3.png" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Bienvenido, <?php $email = Yii::app()->user->name;
-                            echo $email; ?></p>
+                            <p>Bienvenido, <?php $nombre = Yii::app()->user->name;
+                            echo $nombre; ?></p>
                             
                             <a href="#"><i class="fa fa-circle text-success"></i> Conectado</a>
                         </div>
@@ -390,14 +390,10 @@
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a href="index.html">
-                                <i class="fa fa-bar-chart-o"></i> <span>Ver estadisticas</span>
-                            </a>
+                            <a href="index.html"><i class="fa fa-bar-chart-o"></i> <span>Ver estadisticas</span></a>
                         </li>
                         <li class="treeview">
-                            <a href="index.html">
-                                <i class="fa fa-user"></i> <span>Perfil</span>
-                            </a>
+                            <a href="<?php Yii::app()->user->ui->editProfileUrl; ?>"><i class="fa fa-user"></i><span>Perfil</span></a>
                         </li>
                         <li class="treeview">
                             <a href="#">
@@ -406,83 +402,30 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="http://localhost:8888/cyboxgit/caja/usuario/admin.html"><i class="fa fa-angle-double-right"></i><i class="fa fa-user"></i> Usuarios</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-cloud"></i> Espacios</a></li>
+                                <li><a href="<?php echo Yii::app()->user->ui->editProfileUrl;?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-user"></i> Perfil</a></li>
+                            
+                                <li><a href="<?php echo Yii::app()->user->ui->userManagementCreateUrl;?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-plus"></i> Crear Usuario</a></li>
                                 
+                                <li><a href="<? echo Yii::app()->user->ui->userManagementAdminUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-gears"></i> Administrar Usuarios</a></li>
+                                
+                                <li><a href="<? echo Yii::app()->user->ui->fieldsAdminListUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-users"></i> Listar Perfiles</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->fieldsAdminCreateUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-plus"></i> Crear Perfiles</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->rbacListRolesUrl;?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-sitemap"></i> Roles</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->rbacListTasksUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-wrench"></i> Tareas</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->rbacListOpsUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-cog"></i> Operaciones</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->rbacUsersAssignmentsUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-star"></i> Asignar Roles</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->sessionAdminUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-spinner"></i> Sesiones</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->systemUpdateUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-cloud"></i> Variables de Sistema</a></li>
+                                
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-signal"></i> Espacio</a></li>
                             </ul>
-                        </li>
-                        <li class="active">
-                            <a href="index.html">
-                                <i class="fa fa-dashboard"></i> <span>PRUEBA</span>
-                                <?php $this->widget('zii.widgets.CMenu',array(
-                                    'items'=>array(
-                                        array('label'=>'Home', 'url'=>array('/site/index')),
-                                        array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-                                        array('label'=>'Contact', 'url'=>array('/site/contact')),
-                                        array('label'=>'Administrar Usuarios'
-                                            , 'url'=>Yii::app()->user->ui->userManagementAdminUrl
-                                            , 'visible'=>!Yii::app()->user->isGuest),
-                                        array('label'=>'Login'
-                                            , 'url'=>Yii::app()->user->ui->loginUrl
-                                            , 'visible'=>Yii::app()->user->isGuest),
-                                        array('label'=>'Logout ('.Yii::app()->user->name.')'
-                                            , 'url'=>Yii::app()->user->ui->logoutUrl
-                                            , 'visible'=>!Yii::app()->user->isGuest),
-                                    ),
-                                )); ?>
-
-                                <?php /*$this->widget('bootstrap.widgets.BootNavbar', array(
-                                        'fixed'=>false,
-                                        'brand'=>Yii::app()->name,
-                                        'brandUrl'=>'index.php?r=site/index',
-                                        'collapse'=>true, // requires bootstrap-responsive.css
-                                        'items'=>array(
-                                                array(
-                                                        'class'=>'bootstrap.widgets.BootMenu',
-                                                        'items'=>array(
-                                                                array('label'=>'Inicio', 'url'=>array('/site/index'), 'active'=>true),
-                                                                Yii::app()->uimanager->menuCurrentUser,
-                                                        ),
-                                                ),
-                                                array(
-                                                        'class'=>'bootstrap.widgets.BootMenu',
-                                                        'htmlOptions'=>array('class'=>'pull-left'),
-                                                        'items'=>Yii::app()->uimanager->menuAdministradorUsuarios,
-                                                ),
-                                                /*array(
-                                                        'class'=>'bootstrap.widgets.BootMenu',
-                                                        'htmlOptions'=>array('class'=>'pull-left'),
-                                                        'items'=>Yii::app()->uimanager->menuSistema,
-                                                ),
-                                        ),
-                                )); */?>
-
-                                <?php $this->widget('zii.widgets.CMenu',array(
-                                  'id'=>'topnav', 
-                                    'items'=>array(
-                                      array('label'=>'Inicio', 'url'=>array('/site/index'),'items'=>array(
-                                              array('label'=>'Contacto', 'url'=>array('/site/contact')),
-                                              array('label'=>'Acerca de', 'url'=>array('/site/page', 'view'=>'about')),
-                                              ),
-                                      ),
-                                      array('label'=>'Archivo', 'url'=>array('/archivo/index'),'items'=>array(
-                                              array('label'=>'Crear','url'=>array('/archivo/create')),
-                                              ),
-                                      ),
-                                      array('label'=>'Usuarios', 'url'=>array('/usuarios/index'),'items'=>array(
-                                              array('label'=>'Crear','url'=>array('/usuarios/create')),
-                                              ),
-                                      ),
-                                      array('label'=>'Permisos', 'url'=>array('/permisos/index'),'items'=>array(
-                                              array('label'=>'Crear','url'=>array('/permisos/create')),
-                                              ),
-                                      ),
-                                      
-                                      array('label'=>'Entrar', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                                      array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-                                    ),
-                                )); ?>
-                            </a>
                         </li>
                     </ul>
                 </section>
