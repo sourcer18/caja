@@ -7,7 +7,34 @@
   <!--<link rel="stylesheet" href="<?php //echo Yii::app()->theme->baseUrl; ?>/css/layout.css" type="text/css" />-->
   <meta charset="UTF-8">
         <title>Cybox | Panel Principal</title>
+
+
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <?php
+            $cs        = Yii::app()->clientScript;
+            $themePath = Yii::app()->theme->baseUrl;
+
+            /**
+             * StyleSHeets
+             */
+            $cs->registerCssFile($themePath . '/assets/css/bootstrap.css');
+            $cs->registerCssFile($themePath . '/assets/css/bootstrap-theme.css');
+
+            /**
+             * JavaScripts
+             */
+            $cs->registerCoreScript('jquery', CClientScript::POS_END);
+            $cs->registerCoreScript('jquery.ui', CClientScript::POS_END);
+            $cs->registerScriptFile($themePath . '/assets/js/bootstrap.min.js', CClientScript::POS_END);
+            $cs->registerScript('tooltip', "$('[data-toggle=\"tooltip\"]').tooltip();$('[data-toggle=\"popover\"]').tooltip()", CClientScript::POS_READY);
+        ?>
+            <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            
+            <script src="<?php echo Yii::app()->theme->baseUrl . '/assets/js/html5shiv.js';?>">
+            </script>
+            <script src="<?php echo Yii::app()->theme->baseUrl . '/assets/js/respond.min.js';?>">
+            </script>
+
         <!-- bootstrap 3.0.2 -->
         <link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- font Awesome -->
@@ -26,8 +53,48 @@
         <link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        
+        <script>
+
+          function _(el){
+            return document.getElementById(el);
+          }
+          function uploadFile(){
+            var file = _("file1").files[0];
+            var descripcion=document.getElementById("descripcion").value;
+            var formdata = new FormData();
+            formdata.append("file1", file);
+            formdata.append("descripcion", descripcion);
+            var ajax = new XMLHttpRequest();
+            ajax.upload.addEventListener("progress", progressHandler, false);
+            ajax.addEventListener("load", completeHandler, false);
+            ajax.addEventListener("error", errorHandler, false);
+            ajax.addEventListener("abort", abortHandler, false);
+            ajax.open("POST", "<?php echo Yii::app()->theme->baseUrl; ?>/file_upload_parser.php");
+            ajax.send(formdata);
+            
+          }
+          
+          function progressHandler(event){
+            _("loaded_n_total").innerHTML = "Subido "+event.loaded+" bytes de "+event.total;
+            var percent = (event.loaded / event.total) * 100;
+            _("progressBar").value = Math.round(percent);
+            _("status").innerHTML = Math.round(percent)+"% subiendo... porfavor espere";
+          }
+          function completeHandler(event){
+            _("status").innerHTML = event.target.responseText;
+            _("progressBar").value = 0;
+          }
+          function errorHandler(event){
+            _("status").innerHTML = "Subida fallida";
+          }
+          function abortHandler(event){
+            _("status").innerHTML = "Subida abortada";
+          }
+      </script>
 </head>
   <body class="skin-blue">
+        
         <!-- header logo: style can be found in header.less -->
         <header class="header">
             <a href="index.html" class="logo">
@@ -237,14 +304,16 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
-                                <span>David salas <i class="caret"></i></span>
+                                <span><?php $email = Yii::app()->user->name;
+                            echo $email; ?><i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
                                     <img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/avatar3.png" class="img-circle" alt="User Image" />
                                     <p>
-                                        David Salas - Programador
+                                        <?php $email = Yii::app()->user->name;
+                            echo $email; ?>
                                         <small>Registrado desde 2012</small>
                                     </p>
                                 </li>
@@ -263,10 +332,10 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="<?php if(!Yii::app()->user->isGuest){echo Yii::app()->user->ui->editProfileUrl;} ?>" class="btn btn-default btn-flat">Perfil</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="<?php echo Yii::app()->user->ui->logoutUrl?>" class="btn btn-default btn-flat">Desconectar</a>
                                     </div>
                                 </li>
                             </ul>
@@ -286,8 +355,9 @@
                             <img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/avatar3.png" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Bienvenido, David</p>
-
+                            <p>Bienvenido, <?php $nombre = Yii::app()->user->name;
+                            echo $nombre; ?></p>
+                            
                             <a href="#"><i class="fa fa-circle text-success"></i> Conectado</a>
                         </div>
                     </div>
@@ -305,9 +375,7 @@
                     <ul class="sidebar-menu">
                         
                         <li class="treeview">
-                            <a href="index.html">
-                                <i class="fa fa-home"></i> <span>Inicio</span>
-                            </a>
+                            <a href="http://localhost:8888/cyboxgit/caja/site/index.html"><i class="fa fa-home"></i><span>Inicio</span></a>
                         </li>
                         <li class="treeview">
                             <a href="#">
@@ -316,20 +384,16 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-cloud-upload"></i> Archivo</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-folder-open"></i> Carpeta</a></li>
+                                <li><a href="http://localhost:8888/cyboxgit/caja/archivo1/create.html"><i class="fa fa-angle-double-right"></i><i class="fa fa-cloud-upload"></i> Archivo</a></li>
+                                <li><a href="http://localhost:8888/cyboxgit/caja/carpeta/create.php"><i class="fa fa-angle-double-right"></i><i class="fa fa-folder-open"></i> Carpeta</a></li>
                                 
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a href="index.html">
-                                <i class="fa fa-bar-chart-o"></i> <span>Ver estadisticas</span>
-                            </a>
+                            <a href="index.html"><i class="fa fa-bar-chart-o"></i> <span>Ver estadisticas</span></a>
                         </li>
                         <li class="treeview">
-                            <a href="index.html">
-                                <i class="fa fa-user"></i> <span>Perfil</span>
-                            </a>
+                            <a href="<?php Yii::app()->user->ui->editProfileUrl; ?>"><i class="fa fa-user"></i><span>Perfil</span></a>
                         </li>
                         <li class="treeview">
                             <a href="#">
@@ -338,40 +402,30 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-user"></i> Usuarios</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-cloud"></i> Espacios</a></li>
+                                <li><a href="<?php echo Yii::app()->user->ui->editProfileUrl;?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-user"></i> Perfil</a></li>
+                            
+                                <li><a href="<?php echo Yii::app()->user->ui->userManagementCreateUrl;?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-plus"></i> Crear Usuario</a></li>
                                 
+                                <li><a href="<? echo Yii::app()->user->ui->userManagementAdminUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-gears"></i> Administrar Usuarios</a></li>
+                                
+                                <li><a href="<? echo Yii::app()->user->ui->fieldsAdminListUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-users"></i> Listar Perfiles</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->fieldsAdminCreateUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-plus"></i> Crear Perfiles</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->rbacListRolesUrl;?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-sitemap"></i> Roles</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->rbacListTasksUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-wrench"></i> Tareas</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->rbacListOpsUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-cog"></i> Operaciones</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->rbacUsersAssignmentsUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-star"></i> Asignar Roles</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->sessionAdminUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-spinner"></i> Sesiones</a></li>
+                                
+                                <li><a href="<?php echo Yii::app()->user->ui->systemUpdateUrl; ?>"><i class="fa fa-angle-double-right"></i><i class="fa fa-cloud"></i> Variables de Sistema</a></li>
+                                
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i><i class="fa fa-signal"></i> Espacio</a></li>
                             </ul>
-                        </li>
-                        <li class="active">
-                            <a href="index.html">
-                                <i class="fa fa-dashboard"></i> <span>PRUEBA</span>
-                                <?php $this->widget('zii.widgets.CMenu',array(
-                                  'id'=>'topnav', 
-                                    'items'=>array(
-                                      array('label'=>'Inicio', 'url'=>array('/site/index'),'items'=>array(
-                                              array('label'=>'Contacto', 'url'=>array('/site/contact')),
-                                              array('label'=>'Acerca de', 'url'=>array('/site/page', 'view'=>'about')),
-                                              ),
-                                      ),
-                                      array('label'=>'Archivo', 'url'=>array('/archivo/index'),'items'=>array(
-                                              array('label'=>'Crear','url'=>array('/archivo/create')),
-                                              ),
-                                      ),
-                                      array('label'=>'Usuarios', 'url'=>array('/usuarios/index'),'items'=>array(
-                                              array('label'=>'Crear','url'=>array('/usuarios/create')),
-                                              ),
-                                      ),
-                                      array('label'=>'Permisos', 'url'=>array('/permisos/index'),'items'=>array(
-                                              array('label'=>'Crear','url'=>array('/permisos/create')),
-                                              ),
-                                      ),
-                                      
-                                      array('label'=>'Entrar', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                                      array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-                                    ),
-                                )); ?>
-                            </a>
                         </li>
                     </ul>
                 </section>
@@ -381,21 +435,21 @@
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">
                 <!-- Content Header (Page header) -->
+                    
+                <!-- breadcumb de la aplicacion -->
                 <section class="content-header">
-                    <h1>
+                    <!--<h1>
                         Cybox
                         <small>Panel de control</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                        <li class="active">Panel de control</li>
-                    </ol>
-<!-- SECCIÓN BREADCRUMBS -->
-                      <?php if(isset($this->breadcrumbs)):?>
-                            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                              'links'=>$this->breadcrumbs,
-                            )); ?><!-- breadcrumbs -->
-                        <?php endif?>
+                        
+                        <i class="fa fa-dashboard"><?php if(isset($this->breadcrumbs)):?>
+                                    <?php $this->widget('zii.widgets.CBreadcrumbs', array(
+                                      'links'=>$this->breadcrumbs,
+                                    )); ?>
+                                    <?php endif?></i>
+                    </ol>-->
                 </section>
 
                 <!-- Main content -->
@@ -444,5 +498,8 @@
         <!-- AdminLTE for demo purposes -->
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/AdminLTE/demo.js" type="text/javascript"></script>
 
+        <!--  usuarios -->
+
+        <?php echo Yii::app()->user->ui->displayErrorConsole(); ?>
     </body>
 </html>
